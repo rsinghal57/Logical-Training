@@ -2,6 +2,12 @@ package com.training.logical;
 
 import java.util.Scanner;
 
+/**
+ * 
+ * @author rohit.singhal
+ *   <br>
+ *   This class shifts all the zeroes at the end.
+ */
 public class ShiftZero {
 	
 	public static void shift(int[] arr) {
