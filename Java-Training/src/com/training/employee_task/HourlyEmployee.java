@@ -4,10 +4,12 @@ public class HourlyEmployee implements EmployeePayroll {
 
 	double hourlyRate;
 	int hours;
+	PersonalDetails details;
 
-	public HourlyEmployee(double hourlyRate, int hours) {
+	public HourlyEmployee(double hourlyRate, int hours, PersonalDetails details) {
 		this.hourlyRate = hourlyRate;
 		this.hours = hours;
+		this.details = details;
 	}
 
 	@Override
@@ -23,6 +25,16 @@ public class HourlyEmployee implements EmployeePayroll {
 		}
 		return weeklySalary;
 
+	}
+
+	@Override
+	public String getName() {
+		return details.name;
+	}
+
+	@Override
+	public void printDetails() {
+		details.printPersonalDetails();
 	}
 
 }
