@@ -1,6 +1,7 @@
 package com.training.employee_task;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -10,14 +11,31 @@ public class Main {
 	public static void registration() {
 		while (true) {
 			System.out.println("press 0 to quit or any other number to continue");
-			int n = sc.nextInt();
-			if (n == 0) {
-				break;
+			try {
+				int choice = sc.nextInt();
+				if (choice == 0)
+					break;
+			} catch (InputMismatchException e) {
+				String badInput = sc.next();
+				System.out.println(e);
+//				throw new InputMismatchException();
+				continue;
 			}
+
 			System.out.println("Enter name of employee");
 			String name = sc.next();
-			System.out.println("Enter employee ID");
-			int empId = sc.nextInt();
+			int empId;
+			while (true) {
+				System.out.println("Enter employee ID");
+				try {
+					empId = sc.nextInt();
+					break;
+				} catch (InputMismatchException e) {
+					String badInput = sc.next();
+					System.out.println(e);
+					continue;
+				}
+			}
 			System.out.println("Enter email address");
 			String email = sc.next();
 			System.out.println("Enter Country of residence");
@@ -28,8 +46,18 @@ public class Main {
 			String city = sc.next();
 			System.out.println("Enter local address");
 			String localAddress = sc.next();
-			System.out.println("Enter PIN code");
-			int pin = sc.nextInt();
+			int pin;
+			while (true) {
+				System.out.println("Enter PIN Code");
+				try {
+					pin = sc.nextInt();
+					break;
+				} catch (InputMismatchException e) {
+					String badInput = sc.next();
+					System.out.println(e);
+					continue;
+				}
+			}
 			Address a1 = new Address(country, state, city, localAddress, pin);
 			PersonalDetails pd = new PersonalDetails(name, empId, email, a1);
 
@@ -37,23 +65,23 @@ public class Main {
 			System.out.println("1:Salaried Employee  2:Houlry Employee");
 			System.out.println("3:Commission Employee  4:Base Salaried Commission Employee");
 			EmployeePayroll ep = null;
-			int key = sc.nextInt();
-			if (key == 1) {
+			String key = sc.next();
+			if (key.equals("1")) {
 				System.out.println("Enter weekly salary");
 				double salary = sc.nextDouble();
 				ep = new SalariedEmployee(salary, pd);
-			} else if (key == 2) {
+			} else if (key.equals("2")) {
 				System.out.println("Enter houlry salary");
 				double hourlySalary = sc.nextDouble();
 				System.out.println("Enter number of hours worked");
 				int hours = sc.nextInt();
 				ep = new HourlyEmployee(hourlySalary, hours, pd);
-			} else if (key == 3) {
+			} else if (key.equals("3")) {
 				System.out.println("Enter weekly sales amount");
 				double weeklySales = sc.nextDouble();
 				ep = new CommissionEmployee(weeklySales, pd);
 
-			} else if (key == 4) {
+			} else if (key.equals("4")) {
 				System.out.println("Enter weekly sales amount");
 				double weeklySalesAmount = sc.nextDouble();
 				System.out.println("Enter weekly base salary");
