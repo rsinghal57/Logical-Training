@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ShapeDriver {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		HashMap<String, Shape> map = new HashMap<>();
 		int n;
@@ -14,6 +14,9 @@ public class ShapeDriver {
 			System.out.println("Enter number of shapes you want to enter");
 			try {
 				n = sc.nextInt();
+				if (n <= 0 || n > 100) {
+					throw new Exception("Enter number between 1 to 100");
+				}
 				break;
 			} catch (InputMismatchException e) {
 				String badInput = sc.next();
