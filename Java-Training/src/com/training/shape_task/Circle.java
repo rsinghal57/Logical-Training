@@ -1,6 +1,9 @@
 package com.training.shape_task;
 
 public class Circle implements Shape {
+
+//	private static Logger logger = LogManager.getLogger(Circle.class);
+
 	String name;
 	double radius;
 	static double pi = 3.14;
@@ -8,6 +11,7 @@ public class Circle implements Shape {
 	Circle(String name, double radius) {
 		this.name = name;
 		this.radius = radius;
+//		logger.info("A circle object is created");
 	}
 
 	@Override
