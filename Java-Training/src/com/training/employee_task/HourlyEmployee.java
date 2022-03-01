@@ -1,6 +1,6 @@
 package com.training.employee_task;
 
-public class HourlyEmployee implements EmployeePayroll {
+public class HourlyEmployee extends EmployeePayroll {
 
 	double hourlyRate;
 	int hours;
@@ -10,6 +10,11 @@ public class HourlyEmployee implements EmployeePayroll {
 		this.hourlyRate = hourlyRate;
 		this.hours = hours;
 		this.details = details;
+	}
+
+	public HourlyEmployee(double hourlyRate, int hours) {
+		this.hourlyRate = hourlyRate;
+		this.hours = hours;
 	}
 
 	@Override

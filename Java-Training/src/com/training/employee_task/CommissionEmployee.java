@@ -1,6 +1,6 @@
 package com.training.employee_task;
 
-public class CommissionEmployee implements EmployeePayroll {
+public class CommissionEmployee extends EmployeePayroll {
 
 	double salesAmount;
 	PersonalDetails details;
@@ -8,6 +8,10 @@ public class CommissionEmployee implements EmployeePayroll {
 	public CommissionEmployee(double salesAmount, PersonalDetails details) {
 		this.salesAmount = salesAmount;
 		this.details = details;
+	}
+
+	public CommissionEmployee(double salesAmount) {
+		this.salesAmount = salesAmount;
 	}
 
 	@Override

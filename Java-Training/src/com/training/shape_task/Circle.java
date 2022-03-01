@@ -11,7 +11,6 @@ public class Circle implements Shape {
 	Circle(String name, double radius) {
 		this.name = name;
 		this.radius = radius;
-//		logger.info("A circle object is created");
 	}
 
 	@Override

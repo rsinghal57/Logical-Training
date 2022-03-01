@@ -1,10 +1,12 @@
 package com.training.employee_task;
 
-public class PersonalDetails {
-	String name;
-	int empId;
-	String email;
-	Address address;
+import java.io.Serializable;
+
+public class PersonalDetails implements Serializable {
+	public String name;
+	public int empId;
+	public String email;
+	public Address address;
 
 	public PersonalDetails(String name, int empId, String email, Address address) {
 		this.name = name;

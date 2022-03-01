@@ -1,11 +1,13 @@
 package com.training.employee_task;
 
-public interface EmployeePayroll {
+import java.io.Serializable;
 
-	public double calculatePayroll();
+public abstract class EmployeePayroll implements Serializable {
 
-	public String getName();
+	public abstract double calculatePayroll();
 
-	public void printDetails();
+	public abstract String getName();
+
+	public abstract void printDetails();
 
 }

@@ -1,18 +1,25 @@
 package com.training.employee_task;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.training.employee_task.databaseregistration.EmployeeDao;
+import com.training.employee_task.fileregistration.EmployeeFileRegistration;
+
 public class Main {
 	static Scanner sc = new Scanner(System.in);
-	static HashMap<String, EmployeePayroll> map = new HashMap<>();
-	private static final Logger logger = LogManager.getLogger(Main.class);
+	private static Logger logger = LogManager.getLogger(Main.class);
+	static int persistenceChoice;
 
-	public static void registration() {
+	public static void registration() throws IOException {
+
+		System.out.println("How you want to persist your data:-");
+		System.out.println("1)File System  2)Database");
+		persistenceChoice = sc.nextInt();
 		while (true) {
 			System.out.println("press 0 to quit or any other number to continue");
 			try {
@@ -22,12 +29,11 @@ public class Main {
 			} catch (InputMismatchException e) {
 				String badInput = sc.next();
 				System.out.println(e);
-//				throw new InputMismatchException();
 				continue;
 			}
-
+			sc.nextLine();
 			System.out.println("Enter name of employee");
-			String name = sc.next();
+			String name = sc.nextLine();
 			int empId;
 			while (true) {
 				System.out.println("Enter employee ID");
@@ -48,8 +54,9 @@ public class Main {
 			String state = sc.next();
 			System.out.println("Enter city");
 			String city = sc.next();
+			sc.nextLine();
 			System.out.println("Enter local address");
-			String localAddress = sc.next();
+			String localAddress = sc.nextLine();
 			int pin;
 			while (true) {
 				System.out.println("Enter PIN Code");
@@ -104,28 +111,42 @@ public class Main {
 			} else {
 				System.out.println("Invalid employee type");
 			}
-			map.put(ep.getName(), ep);
+			if (persistenceChoice == 1) {
+				EmployeeFileRegistration.insertEmployeeToFile(ep);
+			} else {
+				boolean result = EmployeeDao.insertEmployeeToDB(pd, ep);
+				if (result) {
+					logger.info("Employee added to Database successfully");
+				} else {
+					logger.error("Something went wrong! Try again");
+				}
+			}
 
 		}
+
 	}
 
-	public static void searchEmployee(String name) {
-		if (!map.containsKey(name)) {
-			System.out.println("Employee not found!");
-			logger.error("Object not found in map");
-			return;
-		}
-		EmployeePayroll ep = map.get(name);
-		logger.info("Emoloyee found! (query in map successful)");
-		ep.printDetails();
-	}
-
-	public static void main(String[] args) {
-		registration();
+	public static void searchEmployee() {
 		System.out.println("Enter Employee name to fetch details");
 		String name = sc.next();
-		searchEmployee(name);
-		sc.close();
+		if (persistenceChoice == 1) {
+			EmployeeFileRegistration.searchEmployee(name);
+		} else {
+			EmployeeDao.searchEmployee(name);
+		}
 	}
 
+	public static void main(String[] args) throws IOException {
+		logger.info("Logger in employee working");
+		System.out.println("Choose: 1)Register Emoloyee   2)Search an Employee");
+		String choice = sc.next();
+		if (choice.equals("1")) {
+			registration();
+		} else if (choice.equals("2")) {
+			searchEmployee();
+		} else {
+			System.out.println("Invalid Input");
+		}
+
+	}
 }

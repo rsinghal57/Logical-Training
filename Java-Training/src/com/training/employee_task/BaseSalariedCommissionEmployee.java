@@ -1,6 +1,6 @@
 package com.training.employee_task;
 
-public class BaseSalariedCommissionEmployee implements EmployeePayroll {
+public class BaseSalariedCommissionEmployee extends EmployeePayroll {
 
 	double weeklyBaseSalary;
 	double salesAmount;
@@ -13,6 +13,12 @@ public class BaseSalariedCommissionEmployee implements EmployeePayroll {
 		this.salesAmount = salesAmount;
 		this.bonusPercentage = bonusPercentage;
 		this.details = details;
+	}
+
+	public BaseSalariedCommissionEmployee(double weeklyBaseSalary, double salesAmount, double bonusPercentage) {
+		this.weeklyBaseSalary = weeklyBaseSalary;
+		this.salesAmount = salesAmount;
+		this.bonusPercentage = bonusPercentage;
 	}
 
 	@Override

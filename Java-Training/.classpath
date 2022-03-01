@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="C:/Users/rohit.singhal/eclipse-workspace/Java-Training/lib/log4j-core-2.17.1-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/rohit.singhal/eclipse-workspace/Java-Training/lib/log4j-core-2.17.1-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/rohit.singhal/eclipse-workspace/Java-Training/lib/log4j-core-2.17.1-tests.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rohit.singhal/eclipse-workspace/Java-Training/lib/mysql-connector-java-8.0.28.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,11 +1,13 @@
 package com.training.employee_task;
 
-public class Address {
-	String country;
-	String state;
-	String city;
-	String localAddress;
-	int pincode;
+import java.io.Serializable;
+
+public class Address implements Serializable {
+	public String country;
+	public String state;
+	public String city;
+	public String localAddress;
+	public int pincode;
 
 	public Address(String country, String state, String city, String localAddress, int pincode) {
 		this.country = country;
