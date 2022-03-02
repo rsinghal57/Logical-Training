@@ -13,7 +13,7 @@ import com.training.employee_task.fileregistration.EmployeeFileRegistration;
 public class Main {
 	static Scanner sc = new Scanner(System.in);
 	private static Logger logger = LogManager.getLogger(Main.class);
-	static int persistenceChoice;
+	static int persistenceChoice = 2;
 
 	public static void registration() throws IOException {
 
@@ -143,6 +143,15 @@ public class Main {
 		if (choice.equals("1")) {
 			registration();
 		} else if (choice.equals("2")) {
+			System.out.println("1)Search in file   2)Search in Database");
+			String searchChoice = sc.next();
+			if (searchChoice.equals("1")) {
+				persistenceChoice = 1;
+			} else if (searchChoice.equals("2")) {
+				persistenceChoice = 2;
+			} else {
+				System.out.println("Invalid choice, will now by default seearch in database");
+			}
 			searchEmployee();
 		} else {
 			System.out.println("Invalid Input");
