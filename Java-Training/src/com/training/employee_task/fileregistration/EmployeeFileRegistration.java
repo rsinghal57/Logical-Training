@@ -14,13 +14,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.training.employee_task.EmployeePayroll;
+import com.training.employee_task.Persistence;
+import com.training.employee_task.PersonalDetails;
 
-public class EmployeeFileRegistration {
+public class EmployeeFileRegistration implements Persistence {
 	static HashMap<String, EmployeePayroll> map = new HashMap<>();
 	private static Logger logger = LogManager.getLogger(EmployeeFileRegistration.class);
 	static String fileName = "C:\\Users\\rohit.singhal\\eclipse-workspace\\Java-Training\\resources\\HashMapData.txt";
 
-	public static void insertEmployeeToFile(EmployeePayroll ep) throws IOException {
+	public boolean insertEmployee(PersonalDetails pd, EmployeePayroll ep) throws IOException {
 
 		File file = new File(fileName);
 		file.createNewFile();
@@ -39,9 +41,10 @@ public class EmployeeFileRegistration {
 
 			} catch (IOException ex) {
 				System.out.println("IO exception is caught: " + ex);
+				return false;
 			} catch (ClassNotFoundException ex) {
 				System.out.println("Class not found exception is caught: " + ex);
-
+				return false;
 			}
 		}
 		if (map.containsKey(ep.getName())) {
@@ -63,11 +66,13 @@ public class EmployeeFileRegistration {
 			System.out.println("The object has been serializaed: ");
 		} catch (IOException ex) {
 			System.out.println("IO exception is caught: " + ex);
+			return false;
 		}
+		return true;
 
 	}
 
-	public static void searchEmployee(String name) {
+	public void searchEmployee(String name) {
 		// De-Serialization
 		FileInputStream fileIn = null;
 		ObjectInputStream objIn = null;

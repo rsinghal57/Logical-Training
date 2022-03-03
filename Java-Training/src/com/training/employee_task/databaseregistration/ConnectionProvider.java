@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectionProvider {
-	static Connection conn;
 
 	public static Connection createConnection() {
+		Connection conn = null;
 		try {
 			// Load driver
 			Class.forName("com.mysql.cj.jdbc.Driver");

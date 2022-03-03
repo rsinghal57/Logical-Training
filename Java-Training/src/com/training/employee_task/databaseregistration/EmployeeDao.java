@@ -6,11 +6,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import com.training.employee_task.EmployeePayroll;
+import com.training.employee_task.Persistence;
 import com.training.employee_task.PersonalDetails;
 
-public class EmployeeDao {
+public class EmployeeDao implements Persistence {
 
-	public static boolean insertEmployeeToDB(PersonalDetails pd, EmployeePayroll ep) {
+	public boolean insertEmployee(PersonalDetails pd, EmployeePayroll ep) {
 		boolean flag = false;
 		try {
 			// JDBC Code...
@@ -39,7 +40,7 @@ public class EmployeeDao {
 		return flag;
 	}
 
-	public static void searchEmployee(String name) {
+	public void searchEmployee(String name) {
 		try {
 			// JDBC Code...
 			Connection conn = ConnectionProvider.createConnection();

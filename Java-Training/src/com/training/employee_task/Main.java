@@ -7,19 +7,12 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.training.employee_task.databaseregistration.EmployeeDao;
-import com.training.employee_task.fileregistration.EmployeeFileRegistration;
-
 public class Main {
-	static Scanner sc = new Scanner(System.in);
+
 	private static Logger logger = LogManager.getLogger(Main.class);
-	static int persistenceChoice = 2;
 
-	public static void registration() throws IOException {
-
-		System.out.println("How you want to persist your data:-");
-		System.out.println("1)File System  2)Database");
-		persistenceChoice = sc.nextInt();
+	public static void registration(Persistence p) throws IOException {
+		Scanner sc = new Scanner(System.in);
 		while (true) {
 			System.out.println("press 0 to quit or any other number to continue");
 			try {
@@ -111,48 +104,36 @@ public class Main {
 			} else {
 				System.out.println("Invalid employee type");
 			}
-			if (persistenceChoice == 1) {
-				EmployeeFileRegistration.insertEmployeeToFile(ep);
+
+			boolean result = p.insertEmployee(pd, ep);
+			if (result) {
+				logger.info("Employee added to Database successfully");
 			} else {
-				boolean result = EmployeeDao.insertEmployeeToDB(pd, ep);
-				if (result) {
-					logger.info("Employee added to Database successfully");
-				} else {
-					logger.error("Something went wrong! Try again");
-				}
+				logger.error("Something went wrong! Try again");
 			}
 
 		}
+		searchEmployee(p);
 
 	}
 
-	public static void searchEmployee() {
+	public static void searchEmployee(Persistence p) {
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Employee name to fetch details");
 		String name = sc.next();
-		if (persistenceChoice == 1) {
-			EmployeeFileRegistration.searchEmployee(name);
-		} else {
-			EmployeeDao.searchEmployee(name);
-		}
+		p.searchEmployee(name);
 	}
 
 	public static void main(String[] args) throws IOException {
+		Scanner sc = new Scanner(System.in);
 		logger.info("Logger in employee working");
 		System.out.println("Choose: 1)Register Emoloyee   2)Search an Employee");
 		String choice = sc.next();
+		Persistence p = new PersistentChoice().helper();
 		if (choice.equals("1")) {
-			registration();
+			registration(p);
 		} else if (choice.equals("2")) {
-			System.out.println("1)Search in file   2)Search in Database");
-			String searchChoice = sc.next();
-			if (searchChoice.equals("1")) {
-				persistenceChoice = 1;
-			} else if (searchChoice.equals("2")) {
-				persistenceChoice = 2;
-			} else {
-				System.out.println("Invalid choice, will now by default seearch in database");
-			}
-			searchEmployee();
+			searchEmployee(p);
 		} else {
 			System.out.println("Invalid Input");
 		}
